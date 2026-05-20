@@ -1,6 +1,9 @@
 // Vercel Function: Calculate Shipping Cost
 // Path: api/shipping-cost.js
 
+const https = require('https');
+const querystring = require('querystring');
+
 export default async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -31,45 +34,64 @@ export default async function handler(req, res) {
   }
   
   try {
-    const https = require('https');
-    const fetch = (await import('node-fetch')).default;
-    const FormData = require('form-data');
-    
-    // Create form data
-    const form = new FormData();
-    form.append('origin', ORIGIN_CITY_ID);
-    form.append('destination', destination);
-    form.append('weight', weight);
-    form.append('courier', courier);
-    
-    const response = await fetch('https://api.rajaongkir.com/starter/cost', {
-      method: 'POST',
-      headers: {
-        'key': RAJAONGKIR_API_KEY,
-        ...form.getHeaders()
-      },
-      body: form,
-      agent: new https.Agent({
-        rejectUnauthorized: true
-      })
+    const postData = querystring.stringify({
+      origin: ORIGIN_CITY_ID,
+      destination: destination,
+      weight: weight,
+      courier: courier
     });
     
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('RajaOngkir API error:', response.status, errorText);
-      throw new Error(`RajaOngkir API error: ${response.status}`);
-    }
-    
-    const data = await response.json();
+    const data = await new Promise((resolve, reject) => {
+      const options = {
+        hostname: 'api.rajaongkir.com',
+        path: '/starter/cost',
+        method: 'POST',
+        headers: {
+          'key': RAJAONGKIR_API_KEY,
+          'content-type': 'application/x-www-form-urlencoded',
+          'content-length': Buffer.byteLength(postData)
+        },
+        timeout: 15000
+      };
+      
+      const request = https.request(options, (response) => {
+        let body = '';
+        
+        response.on('data', (chunk) => {
+          body += chunk;
+        });
+        
+        response.on('end', () => {
+          try {
+            const parsed = JSON.parse(body);
+            resolve(parsed);
+          } catch (e) {
+            reject(new Error('Invalid JSON response'));
+          }
+        });
+      });
+      
+      request.on('error', (error) => {
+        reject(error);
+      });
+      
+      request.on('timeout', () => {
+        request.destroy();
+        reject(new Error('Request timeout'));
+      });
+      
+      request.write(postData);
+      request.end();
+    });
     
     // Cache for 1 hour (shipping costs change rarely)
     res.setHeader('Cache-Control', 'public, max-age=3600');
     
     res.status(200).json(data);
   } catch (error) {
-    console.error('Error calculating shipping:', error.message, error.stack);
+    console.error('Error calculating shipping:', error.message);
     res.status(500).json({ 
-      error: 'fetch failed',
+      error: 'Failed to calculate shipping',
       details: error.message 
     });
   }
