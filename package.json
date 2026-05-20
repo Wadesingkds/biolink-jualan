@@ -1,0 +1,22 @@
+{
+  "name": "biolink-jualan",
+  "version": "1.0.0",
+  "description": "Landing page biolink untuk jualan online dengan cek ongkir real-time",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "biolink",
+    "ecommerce",
+    "landing-page",
+    "rajaongkir",
+    "whatsapp-checkout"
+  ],
+  "author": "Mas Didik",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}

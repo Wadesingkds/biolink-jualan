@@ -1,0 +1,164 @@
+{
+  "store": {
+    "name": "Toko Mas Didik",
+    "tagline": "Parfum & Daster Premium Kudus",
+    "avatar": "assets/images/avatar.jpg",
+    "whatsapp": "6285156081257",
+    "location": "Kudus, Jawa Tengah",
+    "trust_badges": ["Terpercaya", "Original", "Gratis Ongkir"]
+  },
+  
+  "promo_banner": {
+    "active": false,
+    "text": "FLASH SALE 50% - Hari Ini Aja!",
+    "countdown": "2026-05-21T23:59:59+07:00"
+  },
+  
+  "categories": [
+    {"id": "parfum", "name": "Parfum", "icon": "🧴"},
+    {"id": "daster", "name": "Daster", "icon": "👗"},
+    {"id": "digital", "name": "Digital", "icon": "📱"}
+  ],
+  
+  "products": [
+    {
+      "id": "p001",
+      "category": "parfum",
+      "name": "Parfum Minyak Wangi Premium 20ml",
+      "thumbnail": "assets/images/products/parfum1.jpg",
+      "price": 149000,
+      "old_price": 299000,
+      "discount": 50,
+      "rating": 4.9,
+      "sold": 1200,
+      "stock": 15,
+      "weight": 500,
+      "badges": ["BEST SELLER", "DISKON 50%"],
+      "variants": ["10ml", "20ml", "30ml"],
+      "shipping": "Gratis ongkir min. 100K",
+      "description": "Parfum minyak wangi premium dengan aroma tahan lama seharian. Cocok untuk pria dan wanita. Non-alkohol, aman untuk kulit sensitif."
+    },
+    {
+      "id": "p002",
+      "category": "parfum",
+      "name": "Parfum Minyak Wangi Luxury 30ml",
+      "thumbnail": "assets/images/products/parfum2.jpg",
+      "price": 199000,
+      "old_price": null,
+      "discount": 0,
+      "rating": 5.0,
+      "sold": 890,
+      "stock": 10,
+      "weight": 600,
+      "badges": ["NEW", "BEST SELLER"],
+      "variants": ["30ml", "50ml"],
+      "shipping": "Gratis ongkir min. 100K",
+      "description": "Parfum luxury dengan aroma eksklusif. Tahan hingga 12 jam. Kemasan premium cocok untuk hadiah."
+    },
+    {
+      "id": "p003",
+      "category": "daster",
+      "name": "Daster Katun Premium d'aster",
+      "thumbnail": "assets/images/products/daster1.jpg",
+      "price": 79000,
+      "old_price": null,
+      "discount": 0,
+      "rating": 5.0,
+      "sold": 2100,
+      "stock": 25,
+      "weight": 300,
+      "badges": ["BEST SELLER", "ALL SIZE"],
+      "variants": ["Motif A", "Motif B", "Motif C"],
+      "shipping": "Gratis ongkir Jawa",
+      "description": "Daster katun premium dengan bahan adem dan nyaman. All size fit to L. Cocok untuk santai di rumah atau tidur."
+    },
+    {
+      "id": "p004",
+      "category": "daster",
+      "name": "Daster Busui Friendly Premium",
+      "thumbnail": "assets/images/products/daster2.jpg",
+      "price": 89000,
+      "old_price": 120000,
+      "discount": 26,
+      "rating": 4.8,
+      "sold": 1500,
+      "stock": 18,
+      "weight": 350,
+      "badges": ["DISKON 26%", "BUSUI FRIENDLY"],
+      "variants": ["Motif D", "Motif E", "Motif F"],
+      "shipping": "Gratis ongkir min. 100K",
+      "description": "Daster dengan bukaan depan, cocok untuk ibu menyusui. Bahan katun premium, adem dan menyerap keringat."
+    },
+    {
+      "id": "p005",
+      "category": "digital",
+      "name": "Panduan Bisnis Parfum Online",
+      "thumbnail": "assets/images/products/ebook1.jpg",
+      "price": 49000,
+      "old_price": 99000,
+      "discount": 51,
+      "rating": 4.9,
+      "sold": 450,
+      "stock": 999,
+      "weight": 0,
+      "badges": ["DIGITAL", "DISKON 51%"],
+      "variants": ["PDF"],
+      "shipping": "Instant delivery",
+      "description": "Ebook lengkap cara memulai bisnis parfum online dari nol. Termasuk supplier, marketing, dan tips closing."
+    },
+    {
+      "id": "p006",
+      "category": "digital",
+      "name": "Template Konten Jualan 100+ Design",
+      "thumbnail": "assets/images/products/template1.jpg",
+      "price": 79000,
+      "old_price": 150000,
+      "discount": 47,
+      "rating": 5.0,
+      "sold": 680,
+      "stock": 999,
+      "weight": 0,
+      "badges": ["DIGITAL", "BEST SELLER"],
+      "variants": ["Canva"],
+      "shipping": "Instant delivery",
+      "description": "100+ template konten jualan siap pakai untuk Instagram, Facebook, dan TikTok. Format Canva, tinggal edit."
+    }
+  ],
+  
+  "testimonials": [
+    {
+      "text": "Wanginya tahan lama banget, seharian masih wangi! Packing rapih, pengiriman cepat. Pasti order lagi.",
+      "author": "Siti Nurhaliza",
+      "location": "Jakarta",
+      "rating": 5,
+      "product_id": "p001"
+    },
+    {
+      "text": "Dasternya adem banget, bahannya premium. All size pas banget di badan. Recommended!",
+      "author": "Dewi Lestari",
+      "location": "Semarang",
+      "rating": 5,
+      "product_id": "p003"
+    },
+    {
+      "text": "Parfumnya wangi mewah, tapi harganya terjangkau. Cocok buat hadiah juga. Terima kasih!",
+      "author": "Rina Susanti",
+      "location": "Surabaya",
+      "rating": 5,
+      "product_id": "p002"
+    },
+    {
+      "text": "Daster busui friendly-nya sangat membantu! Bukaan depannya praktis, bahannya juga nyaman.",
+      "author": "Ayu Ting Ting",
+      "location": "Bandung",
+      "rating": 5,
+      "product_id": "p004"
+    }
+  ],
+  
+  "payment_methods": [
+    {"name": "BCA", "icon": "assets/icons/bca.png"},
+    {"name": "Gopay", "icon": "assets/icons/gopay.png"},
+    {"name": "QRIS", "icon": "assets/icons/qris.png"}
+  ]
+}
