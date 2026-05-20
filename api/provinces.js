@@ -22,13 +22,20 @@ export default async function handler(req, res) {
   }
   
   try {
-    const https = await import('https');
+    // Use node-fetch compatible approach for Vercel
+    const https = require('https');
+    const fetch = (await import('node-fetch')).default;
+    
     const response = await fetch('https://api.rajaongkir.com/starter/province', {
       headers: { 'key': RAJAONGKIR_API_KEY },
-      agent: new https.Agent({ rejectUnauthorized: true })
+      agent: new https.Agent({
+        rejectUnauthorized: true
+      })
     });
     
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('RajaOngkir API error:', response.status, errorText);
       throw new Error(`RajaOngkir API error: ${response.status}`);
     }
     
@@ -39,7 +46,10 @@ export default async function handler(req, res) {
     
     res.status(200).json(data);
   } catch (error) {
-    console.error('Error fetching provinces:', error);
-    res.status(500).json({ error: error.message });
+    console.error('Error fetching provinces:', error.message, error.stack);
+    res.status(500).json({ 
+      error: 'fetch failed',
+      details: error.message 
+    });
   }
 }

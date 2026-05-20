@@ -31,20 +31,27 @@ export default async function handler(req, res) {
   }
   
   try {
-    const https = await import('https');
+    const https = require('https');
+    const fetch = (await import('node-fetch')).default;
+    const FormData = require('form-data');
+    
+    // Create form data
+    const form = new FormData();
+    form.append('origin', ORIGIN_CITY_ID);
+    form.append('destination', destination);
+    form.append('weight', weight);
+    form.append('courier', courier);
+    
     const response = await fetch('https://api.rajaongkir.com/starter/cost', {
       method: 'POST',
       headers: {
         'key': RAJAONGKIR_API_KEY,
-        'content-type': 'application/x-www-form-urlencoded'
+        ...form.getHeaders()
       },
-      body: new URLSearchParams({
-        origin: ORIGIN_CITY_ID,
-        destination: destination,
-        weight: weight,
-        courier: courier
-      }),
-      agent: new https.Agent({ rejectUnauthorized: true })
+      body: form,
+      agent: new https.Agent({
+        rejectUnauthorized: true
+      })
     });
     
     if (!response.ok) {
@@ -60,7 +67,10 @@ export default async function handler(req, res) {
     
     res.status(200).json(data);
   } catch (error) {
-    console.error('Error calculating shipping:', error);
-    res.status(500).json({ error: error.message });
+    console.error('Error calculating shipping:', error.message, error.stack);
+    res.status(500).json({ 
+      error: 'fetch failed',
+      details: error.message 
+    });
   }
 }

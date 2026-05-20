@@ -16,6 +16,10 @@
   ],
   "author": "Mas Didik",
   "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.7",
+    "form-data": "^4.0.0"
+  },
   "devDependencies": {
     "vercel": "^33.0.0"
   }
