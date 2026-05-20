@@ -11,7 +11,7 @@
       "dest": "/api/provinces.js"
     },
     {
-      "src": "/api/cities/(.*)",
+      "src": "/api/cities",
       "dest": "/api/cities/[provinceId].js"
     },
     {
