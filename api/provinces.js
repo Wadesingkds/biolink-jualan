@@ -22,8 +22,10 @@ export default async function handler(req, res) {
   }
   
   try {
+    const https = await import('https');
     const response = await fetch('https://api.rajaongkir.com/starter/province', {
-      headers: { 'key': RAJAONGKIR_API_KEY }
+      headers: { 'key': RAJAONGKIR_API_KEY },
+      agent: new https.Agent({ rejectUnauthorized: true })
     });
     
     if (!response.ok) {

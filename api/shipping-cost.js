@@ -31,6 +31,7 @@ export default async function handler(req, res) {
   }
   
   try {
+    const https = await import('https');
     const response = await fetch('https://api.rajaongkir.com/starter/cost', {
       method: 'POST',
       headers: {
@@ -42,7 +43,8 @@ export default async function handler(req, res) {
         destination: destination,
         weight: weight,
         courier: courier
-      })
+      }),
+      agent: new https.Agent({ rejectUnauthorized: true })
     });
     
     if (!response.ok) {
