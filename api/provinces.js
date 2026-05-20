@@ -1,4 +1,4 @@
-// Vercel Function: Get Provinces
+// Vercel Function: Get Provinces (Biteship)
 // Path: api/provinces.js
 
 const https = require('https');
@@ -17,58 +17,61 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
   
-  const RAJAONGKIR_API_KEY = process.env.RAJAONGKIR_KEY;
-  
-  if (!RAJAONGKIR_API_KEY) {
-    return res.status(500).json({ error: 'API key not configured' });
-  }
-  
   try {
-    // Use native https module for better compatibility
-    const data = await new Promise((resolve, reject) => {
-      const options = {
-        hostname: 'api.rajaongkir.com',
-        path: '/starter/province',
-        method: 'GET',
-        headers: {
-          'key': RAJAONGKIR_API_KEY
-        },
-        timeout: 10000
-      };
-      
-      const request = https.request(options, (response) => {
-        let body = '';
-        
-        response.on('data', (chunk) => {
-          body += chunk;
-        });
-        
-        response.on('end', () => {
-          try {
-            const parsed = JSON.parse(body);
-            resolve(parsed);
-          } catch (e) {
-            reject(new Error('Invalid JSON response'));
-          }
-        });
-      });
-      
-      request.on('error', (error) => {
-        reject(error);
-      });
-      
-      request.on('timeout', () => {
-        request.destroy();
-        reject(new Error('Request timeout'));
-      });
-      
-      request.end();
-    });
+    // Biteship uses static province list (Indonesia provinces)
+    const provinces = [
+      { province_id: '1', province: 'Bali' },
+      { province_id: '2', province: 'Bangka Belitung' },
+      { province_id: '3', province: 'Banten' },
+      { province_id: '4', province: 'Bengkulu' },
+      { province_id: '5', province: 'DI Yogyakarta' },
+      { province_id: '6', province: 'DKI Jakarta' },
+      { province_id: '7', province: 'Gorontalo' },
+      { province_id: '8', province: 'Jambi' },
+      { province_id: '9', province: 'Jawa Barat' },
+      { province_id: '10', province: 'Jawa Tengah' },
+      { province_id: '11', province: 'Jawa Timur' },
+      { province_id: '12', province: 'Kalimantan Barat' },
+      { province_id: '13', province: 'Kalimantan Selatan' },
+      { province_id: '14', province: 'Kalimantan Tengah' },
+      { province_id: '15', province: 'Kalimantan Timur' },
+      { province_id: '16', province: 'Kalimantan Utara' },
+      { province_id: '17', province: 'Kepulauan Riau' },
+      { province_id: '18', province: 'Lampung' },
+      { province_id: '19', province: 'Maluku' },
+      { province_id: '20', province: 'Maluku Utara' },
+      { province_id: '21', province: 'Nanggroe Aceh Darussalam (NAD)' },
+      { province_id: '22', province: 'Nusa Tenggara Barat (NTB)' },
+      { province_id: '23', province: 'Nusa Tenggara Timur (NTT)' },
+      { province_id: '24', province: 'Papua' },
+      { province_id: '25', province: 'Papua Barat' },
+      { province_id: '26', province: 'Riau' },
+      { province_id: '27', province: 'Sulawesi Barat' },
+      { province_id: '28', province: 'Sulawesi Selatan' },
+      { province_id: '29', province: 'Sulawesi Tengah' },
+      { province_id: '30', province: 'Sulawesi Tenggara' },
+      { province_id: '31', province: 'Sulawesi Utara' },
+      { province_id: '32', province: 'Sumatera Barat' },
+      { province_id: '33', province: 'Sumatera Selatan' },
+      { province_id: '34', province: 'Sumatera Utara' }
+    ];
     
-    // Cache for 24 hours (provinces rarely change)
+    // Return in RajaOngkir-compatible format
+    const response = {
+      rajaongkir: {
+        query: [],
+        status: {
+          code: 200,
+          description: 'OK'
+        },
+        results: provinces
+      }
+    };
+    
+    // Cache for 24 hours
     res.setHeader('Cache-Control', 'public, max-age=86400');
     
-    res.status(200).json(data);
+    res.status(200).json(response);
   } catch (error) {
     console.error('Error fetching provinces:', error.message);
     res.status(500).json({ 
