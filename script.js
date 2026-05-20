@@ -3,7 +3,7 @@
 // ===========================
 
 const CONFIG = {
-  API_BASE: 'https://yourdomain.com/api', // Change to your proxy endpoint
+  API_BASE: 'https://biolink-jualan.vercel.app/api',
   WHATSAPP_NUMBER: '6285156081257',
   ORIGIN_CITY_ID: 210, // Kudus
   FREE_SHIPPING_MIN: 100000,
