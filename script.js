@@ -46,10 +46,16 @@ function renderProducts(products) {
   const grid = document.getElementById('product-grid');
   grid.innerHTML = '';
   
-  products.forEach(product => {
+  products.forEach((product, index) => {
     const card = createProductCard(product);
+    // Add staggered animation delay
+    card.style.setProperty('--delay', `${index * 0.1}s`);
+    card.classList.add('reveal-item');
     grid.appendChild(card);
   });
+  
+  // Trigger animations for products
+  initProductAnimations();
 }
 
 // Create product card
@@ -562,6 +568,24 @@ function initScrollReveal() {
   
   document.querySelectorAll('.reveal').forEach(el => {
     observer.observe(el);
+  });
+}
+
+// Product animations with staggered reveal
+function initProductAnimations() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+  
+  document.querySelectorAll('.product-card').forEach(card => {
+    observer.observe(card);
   });
 }
 
